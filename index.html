@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unlock Raheemah's Heart ❤️</title>
+  <style>
+    body {
+      font-family: 'Arial';
+      text-align: center;
+      background: #ffe6f0;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+    h1 {
+      margin-top: 20px;
+      animation: fadeInDown 2s ease-in-out;
+    }
+
+    #game {
+      width: 90vw;
+      height: 90vw;
+      max-width: 400px;
+      max-height: 400px;
+      margin: 20px auto;
+      border: 8px double #ff80bf;
+      background: #fff0f5;
+      position: relative;
+    }
+
+    #player, #key, #lock {
+      width: 12%;
+      height: 12%;
+      position: absolute;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    #player {
+      background-image: url('https://cdn-icons-png.flaticon.com/128/16678/16678400.png');
+      top: 0;
+      left: 0;
+    }
+
+    #key {
+      background-image: url('https://cdn-icons-png.flaticon.com/128/13932/13932784.png');
+      top: 50%;
+      left: 30%;
+    }
+
+    #lock {
+      background-image: url('https://cdn-icons-png.flaticon.com/512/3064/3064197.png');
+      top: 85%;
+      left: 80%;
+    }
+
+    #message {
+      font-size: 1.2em;
+      color: #cc0066;
+      font-weight: bold;
+      padding: 0 20px;
+      animation: fadeInUp 2s ease-in-out;
+    }
+
+    .bubble {
+      position: absolute;
+      font-size: 0.9em;
+      color: #ff66a3;
+      opacity: 0.8;
+      animation: floatUp 6s ease-in forwards;
+      pointer-events: none;
+    }
+
+    @keyframes floatUp {
+      0% { bottom: 0; opacity: 0; transform: translateX(0); }
+      50% { opacity: 1; }
+      100% { bottom: 100%; opacity: 0; transform: translateX(-20px); }
+    }
+
+    @keyframes fadeInUp {
+      0% {opacity: 0; transform: translateY(20px);}
+      100% {opacity: 1; transform: translateY(0);}
+    }
+
+    @keyframes fadeInDown {
+      0% {opacity: 0; transform: translateY(-20px);}
+      100% {opacity: 1; transform: translateY(0);}
+    }
+
+    /* Mobile Controls */
+    .controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-top: 20px;
+      gap: 10px;
+    }
+
+    .arrow-btn {
+      width: 60px;
+      height: 60px;
+      font-size: 24px;
+      border: none;
+      border-radius: 10px;
+      background: #ff99cc;
+      color: white;
+      box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+      user-select: none;
+    }
+
+    .arrow-btn:active {
+      background: #ff66a3;
+    }
+  </style>
+</head>
+<body>
+  <h1>💘 Unlock Raheemah's Heart 💘</h1>
+  <h2>collect the keys</h2>
+
+  <div id="game">
+    <div id="player"></div>
+    <div id="key"></div>
+    <div id="lock"></div>
+  </div>
+
+  <p id="message"></p>
+
+  <!-- Mobile Direction Buttons -->
+  <div class="controls">
+    <button class="arrow-btn" onclick="move('ArrowUp')">⬆️</button><br>
+    <button class="arrow-btn" onclick="move('ArrowLeft')">⬅️</button>
+    <button class="arrow-btn" onclick="move('ArrowDown')">⬇️</button>
+    <button class="arrow-btn" onclick="move('ArrowRight')">➡️</button>
+  </div>
+
+  <script>
+    const player = document.getElementById("player");
+    const key = document.getElementById("key");
+    const lock = document.getElementById("lock");
+    const message = document.getElementById("message");
+    const game = document.getElementById("game");
+
+    let hasKey = false;
+    let posX = 0, posY = 0;
+    const moveStep = game.offsetWidth * 0.03;
+
+    document.addEventListener("keydown", e => move(e.key));
+
+    function move(direction) {
+      if (direction === "ArrowUp") posY -= moveStep;
+      if (direction === "ArrowDown") posY += moveStep;
+      if (direction === "ArrowLeft") posX -= moveStep;
+      if (direction === "ArrowRight") posX += moveStep;
+
+      // Clamp inside game area
+      posX = Math.max(0, Math.min(posX, game.clientWidth - player.clientWidth));
+      posY = Math.max(0, Math.min(posY, game.clientHeight - player.clientHeight));
+
+      player.style.top = `${posY}px`;
+      player.style.left = `${posX}px`;
+
+      checkCollision();
+    }
+
+    function checkCollision() {
+      if (isTouching(player, key)) {
+        key.style.display = "none";
+        hasKey = true;
+        message.textContent = "❤️ Raheemah, you got the key! Now unlock the heart! ❤️";
+      }
+
+      if (hasKey && isTouching(player, lock)) {
+        lock.style.filter = "grayscale(50%)";
+        message.textContent = "💕 Raheemah, you already had the key to my heart! 💕";
+      }
+    }
+
+    function isTouching(a, b) {
+      const aRect = a.getBoundingClientRect();
+      const bRect = b.getBoundingClientRect();
+      return !(
+        aRect.right < bRect.left ||
+        aRect.left > bRect.right ||
+        aRect.bottom < bRect.top ||
+        aRect.top > bRect.bottom
+      );
+    }
+
+    const quotes = [
+      "You're my sunshine ☀️",
+      "Love grows here 🌸",
+      "Every moment with you is magic ✨",
+      "You make my heart smile 😊",
+      "Forever isn’t long enough 💖"
+    ];
+
+    function createBubbleQuote() {
+      const quote = document.createElement("div");
+      quote.className = "bubble";
+      quote.textContent = quotes[Math.floor(Math.random() * quotes.length)];
+      quote.style.left = Math.random() > 0.5 ? '5%' : '85%';
+      quote.style.bottom = '0';
+      quote.style.animationDuration = `${4 + Math.random() * 4}s`;
+      document.body.appendChild(quote);
+
+      setTimeout(() => {
+        quote.remove();
+      }, 8000);
+    }
+
+    setInterval(createBubbleQuote, 3000);
+  </script>
+</body>
+</html>
